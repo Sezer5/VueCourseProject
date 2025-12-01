@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+
+header{
+    background-color:#3fb27f ;
+    color:white;
+    position: fixed;
+    width: 100%;
+}
+
+.headerContainer{
+    display: flex;
+    padding: 30px 0px;
+    justify-content: space-between;
+}
+
+.userAction{
+    list-style-type: none;
+}
+
+header ul{
+    margin: 0;
+}
+
+.brand{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.routerDiv{
+    display: flex;
+    align-items: center;
+    
+}
+
+header ul li{
+    font-size: 20px;
+}

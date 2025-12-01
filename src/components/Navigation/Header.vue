@@ -1,11 +1,11 @@
 <template>
     <header>
-        <div class="container">
-            <div>
+        <div class="container headerContainer">
+            <div class="brand">
                 <router-link to="/">Sezer Ünalmış</router-link>
             </div>
-            <div>
-                <ul>
+            <div class="routerDiv">
+                <ul class="userAction">
                     <li>
                         <router-link to="/signin">Giriş Yap</router-link>
                     </li>
