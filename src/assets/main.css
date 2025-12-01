@@ -3,7 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+.color-vue{
+    background-color: #3fb27f;
+}
 a{
     color: white;
     text-decoration: none;
@@ -52,3 +54,43 @@ header ul li{
         justify-content: center;
         align-items: center;
     }
+
+.signinContainer Form{
+    width: 500px;
+    border: 1px solid seagreen;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.signinContainer Form h1{
+    text-align: center;
+    color:lightslategray;
+    margin-bottom: 20px;
+}
+
+.signinContainer Form input{
+    background: ghostwhite;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.btn-block{
+    width: 100%;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.btn-block:hover{
+   background-color: white;
+   color:#3fb27f;
+   border: 1px solid #3fb27f;
+}
+
+.signinContainer .formChange{
+    cursor: pointer;
+    color: #3fb27f;
+    font-weight: 100;
+    font-size: 20px;
+}
+
