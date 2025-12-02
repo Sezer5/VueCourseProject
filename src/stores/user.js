@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth'
 import {AUTH,DB} from '@/utils/firebase'
 import {getDoc,doc,setDoc,updateDoc} from 'firebase/firestore'
-
+import router from '@/router'
 
 const DEFAULT_USER={
     uid:null,
@@ -41,7 +41,8 @@ export const useUserStore = defineStore('user',{
                 }
                 await setDoc(doc(DB,'users',response.user.uid),newUser);
 
-                this.setUser(newUser)
+                this.setUser(newUser);
+                router.push('/user/dashboard')
             } catch (error) {
                 
             }
