@@ -81,6 +81,16 @@ export const useUserStore = defineStore('user',{
                 this.loading = false;
             }
            
+        },
+        async authsignin(uid){
+            try {
+                    const userData = await this.getUserProfile(uid);
+                    this.setUser(userData);
+                    return true;
+            } catch (error) {
+                console.log(error);
+            }
+           
         }
     }
  
