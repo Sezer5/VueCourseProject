@@ -93,4 +93,7 @@ header ul li{
     font-weight: 100;
     font-size: 20px;
 }
-
+.input-alert{
+    color:red;
+    margin-bottom: 15px;
+}
