@@ -31,29 +31,21 @@
 import {Field,Form} from 'vee-validate';
 import * as yup from 'yup';
 import {ref} from 'vue';
-import {useUserStore} from '@/stores/user.js';
-
-const userStore = useUserStore();
-
+import {useUserStore} from '@/stores/user.js'
+const userStore=useUserStore();
 
 
-const formSchema = yup.object({
+const formSchema=yup.object({
     email:yup.string().required('Email girmek zorunludur').email('Lütfen doğru formatta email giriniz!'),
-    password:yup.string().required('Şifre girmek zorunludur')
-});
-
-
-
+    password:yup.string().required('Şifre girmek zorunludur!')
+})
 const isLoggedScreen=ref(true);
 
 
 
 
-
-
-
 function onSubmit(values,{resetForm}){
-    userStore.register(values);
+    userStore.register(values)
 }
 </script>
 

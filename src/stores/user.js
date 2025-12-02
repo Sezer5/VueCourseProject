@@ -1,10 +1,15 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth'
+import {AUTH,DB} from '@/utils/firebase'
+import {getDoc,doc,setDoc,updateDoc} from 'firebase/firestore'
+
+
 const DEFAULT_USER={
     uid:null,
     email:null,
-    firtsname:null,
+    firstname:null,
     lastname:null,
     isAdmin:null
 }
@@ -19,9 +24,32 @@ export const useUserStore = defineStore('user',{
 
     },
     actions:{
-        register(){
-            
+        setUser(user){
+            this.user={...this.user,...user}; // DEFAULT OLAN USER YENİ KAYDEDİLMİŞ USER İLE GÜNCELLENİP OTURUM AÇILMIŞ GİBİ DEĞERLENDİRİLİYOR BURADA KASTEDİLEN STATE İÇİNDEKİ DEĞERLERİN GÜNCELLENMESİ İŞLEMİ
+            this.auth=true;
+        },
+        async register(formData){
+            try {
+                this.loading = true;
+               const response= await createUserWithEmailAndPassword(AUTH,formData.email,formData.password)
+               console.log(response)
+
+                const newUser={
+                    uid:response.user.uid,
+                    email:response.user.email,
+                    isAdmin:false
+                }
+                await setDoc(doc(DB,'users',response.user.uid),newUser);
+
+                this.setUser(newUser)
+            } catch (error) {
+                
+            }
+            finally{
+                this.loading = false;
+            }
+           
         }
     }
-
+ 
 })
