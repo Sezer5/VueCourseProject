@@ -49,7 +49,12 @@ const isLoggedScreen=ref(true);
 
 
 function onSubmit(values,{resetForm}){
-    userStore.register(values)
+    if(isLoggedScreen.value){
+        userStore.signIn(values)
+    }else{
+        userStore.register(values)
+    }
+    
 }
 </script>
 

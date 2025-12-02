@@ -28,6 +28,32 @@ export const useUserStore = defineStore('user',{
             this.user={...this.user,...user}; // DEFAULT OLAN USER YENİ KAYDEDİLMİŞ USER İLE GÜNCELLENİP OTURUM AÇILMIŞ GİBİ DEĞERLENDİRİLİYOR BURADA KASTEDİLEN STATE İÇİNDEKİ DEĞERLERİN GÜNCELLENMESİ İŞLEMİ
             this.auth=true;
         },
+        async getUserProfile(uid){ // FİREBASE'DEN BURADAKİ USER İD'YE SAHİP OLAN DATAYI ÇEKMEK İÇİN BU FONKSİYONU YAZDIK
+            try {
+                const userRef = await getDoc(doc(DB,'users',uid));
+                
+                return userRef.data();
+            } catch (error) {
+                
+            }
+        },
+        async signIn(formData){
+             try {
+               this.loading = true;
+               const response= await signInWithEmailAndPassword(AUTH,formData.email,formData.password)
+               
+               const userData = await this.getUserProfile(response.user.uid)
+               this.setUser = (userData); 
+                
+                
+                router.push('/user/dashboard')
+            } catch (error) {
+                
+            }
+            finally{
+                this.loading = false;
+            }
+        },
         async register(formData){
             try {
                 this.loading = true;
