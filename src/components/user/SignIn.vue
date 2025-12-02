@@ -1,6 +1,10 @@
 <template>
     <div class="signinContainer">
-        <Form :validation-schema="formSchema" @submit="onSubmit">
+        <div v-if="userStore.loading">
+            <v-progress-circular indeterminate color="success"/>
+      
+        </div>
+        <Form :validation-schema="formSchema" @submit="onSubmit" v-if="!userStore.loading">
             <h1 class="text-center">{{isLoggedScreen ? 'Eğitmen Girişi' : 'Kayıt Ol!'}}</h1>
             <div class="form-group">
                 <Field name="email" v-slot="{field,errors,errorMessage}">
