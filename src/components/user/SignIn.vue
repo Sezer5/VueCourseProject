@@ -1,6 +1,6 @@
 <template>
     <div class="signinContainer">
-        <Form :validation-schema="formSchema">
+        <Form :validation-schema="formSchema" @submit="onSubmit">
             <h1 class="text-center">{{isLoggedScreen ? 'Eğitmen Girişi' : 'Kayıt Ol!'}}</h1>
             <div class="form-group">
                 <Field name="email" v-slot="{field,errors,errorMessage}">
@@ -31,6 +31,10 @@
 import {Field,Form} from 'vee-validate';
 import * as yup from 'yup';
 import {ref} from 'vue';
+import {useUserStore} from '@/stores/user.js';
+
+const userStore = useUserStore();
+
 
 
 const formSchema = yup.object({
@@ -41,6 +45,16 @@ const formSchema = yup.object({
 
 
 const isLoggedScreen=ref(true);
+
+
+
+
+
+
+
+function onSubmit(values,{resetForm}){
+    userStore.register(values);
+}
 </script>
 
 <style scoped>
