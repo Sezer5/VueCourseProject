@@ -5,6 +5,9 @@ import {createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 
 import {AUTH,DB} from '@/utils/firebase'
 import {getDoc,doc,setDoc,updateDoc} from 'firebase/firestore'
 import router from '@/router'
+import {useToast} from 'vue-toast-notification'
+
+const $toast = useToast();
 
 const DEFAULT_USER={
     uid:null,
@@ -47,8 +50,9 @@ export const useUserStore = defineStore('user',{
                 
                 
                 router.push('/user/dashboard')
+                $toast.success('Hoşgeldiniz!')
             } catch (error) {
-                
+                $toast.error('Hatalı Giriş Yaptınız!')
             }
             finally{
                 this.loading = false;
@@ -69,8 +73,9 @@ export const useUserStore = defineStore('user',{
 
                 this.setUser(newUser);
                 router.push('/user/dashboard')
+                $toast.success('Hoşgeldiniz!')
             } catch (error) {
-                
+                $toast.error('Hatalı Kaydolma İşlemi Yaptınız!')
             }
             finally{
                 this.loading = false;
