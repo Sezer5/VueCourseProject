@@ -7,6 +7,7 @@ import Profile from '@/components/user/dashboard/Profile.vue'
 import Courses from '@/components/user/dashboard/admin/Courses.vue'
 import AddCourse from '@/components/user/dashboard/admin/AddCourse.vue'
 import EditCourse from '@/components/user/dashboard/admin/EditCourse.vue'
+import {isAuth,isLoggedIn} from '@/composable/auth'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -18,11 +19,13 @@ const router = createRouter({
     {
       path: '/signin',
       name: 'signin',
+      beforeEnter:isLoggedIn,
       component: SignIn,
     },
     {
       path: '/user/dashboard',
       name: 'mainpage',
+      beforeEnter:isAuth,
       component: MainPage,
       children:[
         {path:'',component:Dashboard,name:'dashboard'},
