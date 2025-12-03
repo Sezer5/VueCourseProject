@@ -2,7 +2,7 @@
     <div>
         <h1>Kurs Ekle</h1>
         <hr>
-        <Form :validation-schema="formSchema" @submit="onSubmit">
+        <Form :validation-schema="CourseSchema" @submit="onSubmit">
             <div class="mb-4">
                 <Field name="category" v-slot="{field,errors,errorMessage}">
                     <input type="text" class="form-control" placeholder="Lütfen Kategori Giriniz." v-bind="field" :class="{'is-invalid':errors.length!==0}"/>
@@ -59,6 +59,7 @@
 <script setup>
 import {Field,Form} from 'vee-validate';
 import * as yup from 'yup';
+import CourseSchema from './schema.js'
 const ratingArray = [0,1,2,3,4,5];
 
 function onSubmit(values,{resetForm}){
