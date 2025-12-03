@@ -32,7 +32,7 @@
                 </div>
 
             </nav>
-            <div class="col-md-10">
+            <div class="col-md-10 ms-auto px-4 mt150">
                 <router-view></router-view>
             </div>
 
