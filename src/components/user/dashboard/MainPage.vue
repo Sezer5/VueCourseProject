@@ -17,13 +17,13 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{name:'courses'}">
+                            <router-link class="nav-link" :to="{name:'courses'}" v-if="userStore.user.isAdmin">
                                 <v-icon icon="mdi-note-outline"/>
                                 <span>Kurslarım</span>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{name:'courses_add'}">
+                            <router-link class="nav-link" :to="{name:'courses_add'}" v-if="userStore.user.isAdmin">
                                 <v-icon icon="mdi-note-edit-outline"/>
                                 <span>Kurs Ekle</span>
                             </router-link>
@@ -43,4 +43,8 @@
 </template>
 
 <script setup>
+import {useUserStore} from '@/stores/user';
+
+const userStore = useUserStore()
+
 </script>
