@@ -1,6 +1,6 @@
 <template>
   <div class="text-center m-5" v-if="loading">
-            <v-progress-circular indeterminate color="success"/>    
+    <v-progress-circular indeterminate color="success"/>    
   </div>
   <div v-if="!loading">
     <Header />

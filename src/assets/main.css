@@ -46,6 +46,7 @@ header ul{
 
 header ul li{
     font-size: 20px;
+    margin-right: 20px;
 }
 
 .signinContainer{
@@ -96,4 +97,8 @@ header ul li{
 .input-alert{
     color:red;
     margin-bottom: 15px;
+}
+
+.userAuthAction{
+    display: flex;
 }

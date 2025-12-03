@@ -1,5 +1,5 @@
 <template>
-  
+  deneme
 </template>
 
 <script setup>

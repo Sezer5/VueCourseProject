@@ -31,6 +31,12 @@ export const useUserStore = defineStore('user',{
             this.user={...this.user,...user}; // DEFAULT OLAN USER YENİ KAYDEDİLMİŞ USER İLE GÜNCELLENİP OTURUM AÇILMIŞ GİBİ DEĞERLENDİRİLİYOR BURADA KASTEDİLEN STATE İÇİNDEKİ DEĞERLERİN GÜNCELLENMESİ İŞLEMİ
             this.auth=true;
         },
+        async signOut(){
+            await signOut(AUTH)
+            this.user = DEFAULT_USER
+            this.auth = false
+            router.push('/')
+        },
         async getUserProfile(uid){ // FİREBASE'DEN BURADAKİ USER İD'YE SAHİP OLAN DATAYI ÇEKMEK İÇİN BU FONKSİYONU YAZDIK
             try {
                 const userRef = await getDoc(doc(DB,'users',uid));
@@ -46,9 +52,7 @@ export const useUserStore = defineStore('user',{
                const response= await signInWithEmailAndPassword(AUTH,formData.email,formData.password)
                
                const userData = await this.getUserProfile(response.user.uid)
-               this.setUser = (userData); 
-                
-                
+                this.setUser = (userData);                 
                 router.push('/user/dashboard')
                 $toast.success('Hoşgeldiniz!')
             } catch (error) {
