@@ -1,20 +1,19 @@
 import {ref} from 'vue'
-import {AUTH} from '@/utils/firebase'
-import {onAuthStateChanged} from 'firebase/auth'
+import {AUTH} from '@/utils/firebase';
+import {onAuthStateChanged} from 'firebase/auth';
 import {useUserStore} from '@/stores/user'
 
 
-export const firstLoad=()=>{
-    const userStore = useUserStore();
-    const loading = ref(true);
-    onAuthStateChanged(AUTH,async(user)=>{
-        console.log(user);
-        if(user){
-            await userStore.authsignin(user.uid);
+export const firstLoad=() =>{
+     const userStore=useUserStore();
+     const loading=ref(true);
+     onAuthStateChanged(AUTH,async(user)=>{
+        if(user)
+        {
+            await userStore.autosignin(user.uid)
         }
         loading.value=false;
-    })
-
-
-    return {loading};
+       
+     })
+     return {loading}
 }

@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import router from '@/router'
 
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth'
 import {AUTH,DB} from '@/utils/firebase'
 import {getDoc,doc,setDoc,updateDoc} from 'firebase/firestore'
-import router from '@/router'
 import {useToast} from 'vue-toast-notification'
+const $toast=useToast();
 
-const $toast = useToast();
 
 const DEFAULT_USER={
     uid:null,
@@ -28,35 +28,51 @@ export const useUserStore = defineStore('user',{
     },
     actions:{
         setUser(user){
-            this.user={...this.user,...user}; // DEFAULT OLAN USER YENİ KAYDEDİLMİŞ USER İLE GÜNCELLENİP OTURUM AÇILMIŞ GİBİ DEĞERLENDİRİLİYOR BURADA KASTEDİLEN STATE İÇİNDEKİ DEĞERLERİN GÜNCELLENMESİ İŞLEMİ
+            this.user={...this.user,...user};
             this.auth=true;
         },
+
         async signOut(){
-            await signOut(AUTH)
-            this.user = DEFAULT_USER
-            this.auth = false
-            router.push('/')
+            await signOut(AUTH);
+            this.user=DEFAULT_USER;
+            this.auth=false;
+            router.push('/');
         },
-        async getUserProfile(uid){ // FİREBASE'DEN BURADAKİ USER İD'YE SAHİP OLAN DATAYI ÇEKMEK İÇİN BU FONKSİYONU YAZDIK
+        async autosignin(uid){
             try {
-                const userRef = await getDoc(doc(DB,'users',uid));
-                
+                const userData= await this.getUserProfile(uid);
+                this.setUser(userData);
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+          
+
+        },
+        async getUserProfile(uid){
+            try {
+                const userRef=await getDoc(doc(DB,'users',uid))
+              
                 return userRef.data();
             } catch (error) {
                 
             }
+
         },
         async signIn(formData){
-             try {
-               this.loading = true;
-               const response= await signInWithEmailAndPassword(AUTH,formData.email,formData.password)
+            try {
+                this.loading = true;
+               const response= await signInWithEmailAndPassword(AUTH,formData.email,formData.password)              
+              
+
+                const userData= await this.getUserProfile(response.user.uid);
+                this.setUser(userData);              
                
-               const userData = await this.getUserProfile(response.user.uid)
-                this.setUser = (userData);                 
-                router.push('/user/dashboard')
-                $toast.success('Hoşgeldiniz!')
+                
+                router.push('/user/dashboard');
+                $toast.success('Hoşgeldiniz!');
             } catch (error) {
-                $toast.error('Hatalı Giriş Yaptınız!')
+                $toast.error('Hatalı Giriş Yaptınız!');
             }
             finally{
                 this.loading = false;
@@ -66,7 +82,7 @@ export const useUserStore = defineStore('user',{
             try {
                 this.loading = true;
                const response= await createUserWithEmailAndPassword(AUTH,formData.email,formData.password)
-               console.log(response)
+              
 
                 const newUser={
                     uid:response.user.uid,
@@ -76,23 +92,14 @@ export const useUserStore = defineStore('user',{
                 await setDoc(doc(DB,'users',response.user.uid),newUser);
 
                 this.setUser(newUser);
-                router.push('/user/dashboard')
-                $toast.success('Hoşgeldiniz!')
+                
+                router.push('/user/dashboard');
+                $toast.success('Hoşgeldiniz!');
             } catch (error) {
-                $toast.error('Hatalı Kaydolma İşlemi Yaptınız!')
+                $toast.error('Hatalı Kaydolma İşlemi Yaptınız!');
             }
             finally{
                 this.loading = false;
-            }
-           
-        },
-        async authsignin(uid){
-            try {
-                    const userData = await this.getUserProfile(uid);
-                    this.setUser(userData);
-                    return true;
-            } catch (error) {
-                console.log(error);
             }
            
         }
