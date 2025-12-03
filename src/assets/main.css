@@ -17,6 +17,7 @@ header{
     color:white;
     position: fixed;
     width: 100%;
+    z-index: 32;
 }
 
 .headerContainer{
@@ -101,4 +102,20 @@ header ul li{
 
 .userAuthAction{
     display: flex;
+}
+.sidebar{
+    top: 100px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+}
+.sidebar .nav-link{
+    display: flex;
+    color: black;
+    font-weight: 500;
+}
+
+.nav-link.router-link-exact-active{
+    color:#3fb27f;
 }
