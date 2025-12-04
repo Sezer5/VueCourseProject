@@ -29,17 +29,27 @@
                 </tr>
             </tbody>
         </v-table>
+        <div v-if="btnLoad" class="text-center m-3">
+            <v-progress-circular indeterminate color="primary" />
+        </div>
+    <div v-if="!btnLoad">
         <v-btn variant="outlined" class="mt-5" @click="loadMore()">Daha Fazla Kurs Yükle</v-btn>
+    </div>
   </div>
 </template>
 
 <script setup>
 import {useCourseStore} from '@/stores/courses'
+import {ref} from 'vue'
+const btnLoad = ref(false);
 const courseStore = useCourseStore();
 courseStore.adminGetCourses(3);
 
 const loadMore = () =>{
-    courseStore.adminGetMoreCourses(3);
+    btnLoad.value=true;
+    courseStore.adminGetMoreCourses(3).finally(()=>{
+        btnLoad.value=false;
+    });
 }
 
 </script>
