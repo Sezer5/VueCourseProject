@@ -26,7 +26,7 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.rating }}</td>
                     <td><v-btn variant="outlined" color="red" size="small" @click="removeCourse(course.id)">Sil</v-btn></td>
-                    <td><v-btn variant="outlined" color="blue" size="small">Güncelle</v-btn></td>
+                    <td><v-btn variant="outlined" color="blue" size="small" @click="router.push({name:'courses_edit',params:{id:course.id}})">Güncelle</v-btn></td>
                     
                     
                 </tr>
@@ -44,11 +44,12 @@
 <script setup>
 import {useCourseStore} from '@/stores/courses'
 import {ref} from 'vue'
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 import {useToast} from 'vue-toast-notification'
 const $toast=useToast();
 
 const route = useRoute();
+const router = useRouter();
 const btnLoad = ref(false);
 const loading = ref(false);
 const courseStore = useCourseStore();

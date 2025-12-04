@@ -17,6 +17,19 @@ export const useCourseStore = defineStore('course',{
 
     },
     actions:{
+
+
+        async getCourseById(id){
+            
+            try {
+                const docRef = await getDoc(doc(DB,'courses',id));
+                // console.log(docRef.data());
+                return docRef.data();
+            } catch (error) {
+                
+            }
+        },
+
         async addCourse(formData){
             const userStore = useUserStore();
             const user = userStore.getUserData;
