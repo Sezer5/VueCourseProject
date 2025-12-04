@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
 import {DB} from '@/utils/firebase'
-import {collection,getDoc,doc,setDoc,updateDoc,serverTimestamp,query,orderBy,getDocs,limit,startAfter} from 'firebase/firestore'
+import {collection,getDoc,doc,setDoc,updateDoc,serverTimestamp,query,orderBy,getDocs,limit,startAfter,deleteDoc} from 'firebase/firestore'
 import {useUserStore} from '@/stores/user'
 import AddCourse from '@/components/user/dashboard/admin/AddCourse.vue'
 
@@ -29,8 +29,8 @@ export const useCourseStore = defineStore('course',{
                     lastname:user.lastname
                 },
                 ...formData
-            })
-            router.push({name:'courses'})
+            });
+            router.push({name:'courses',query:{reload:true}})
         },
 
         async adminGetCourses(docLimit){
@@ -67,6 +67,14 @@ export const useCourseStore = defineStore('course',{
                 ...newCourses
             ]
             this.adminLastVisible=lastVisible;
+        },
+
+        async removeById(courseID){
+            await deleteDoc(doc(DB,'courses',courseID))
+            const newList = this.adminCourses.filter(course=>{
+                return course.id != courseID;
+            });
+            this.adminCourses = newList;
         }
     }
 })

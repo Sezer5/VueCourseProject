@@ -25,7 +25,7 @@
                     <td>{{ course.owner.firstname }} {{ course.owner.lastname }}</td>
                     <td>{{ course.title }}</td>
                     <td>{{ course.rating }}</td>
-                    <td><v-btn variant="outlined" color="red" size="small">Sil</v-btn></td>
+                    <td><v-btn variant="outlined" color="red" size="small" @click="removeCourse(course.id)">Sil</v-btn></td>
                     <td><v-btn variant="outlined" color="blue" size="small">Güncelle</v-btn></td>
                     
                     
@@ -44,12 +44,17 @@
 <script setup>
 import {useCourseStore} from '@/stores/courses'
 import {ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {useToast} from 'vue-toast-notification'
+const $toast=useToast();
+
+const route = useRoute();
 const btnLoad = ref(false);
 const loading = ref(false);
 const courseStore = useCourseStore();
 
 
-if(!courseStore.adminCourses){
+if(!courseStore.adminCourses || route.query.reload){
     loading.value=true;
     courseStore.adminGetCourses(3).finally(()=>{
          loading.value=false;
@@ -60,10 +65,19 @@ if(!courseStore.adminCourses){
 
 const loadMore = () =>{
     btnLoad.value=true;
-    courseStore.adminGetMoreCourses(3).finally(()=>{
+    courseStore.adminGetMoreCourses(3).then(()=>{
+        $toast.success('Silme İşlemi Gerçekleşti');
+    }).catch(()=>{  
+        $toast.error('Silme işlemi başarısız');
+    }).finally(()=>{
         btnLoad.value=false;
     });
 }
+
+const removeCourse = (courseID)=>{
+    courseStore.removeById(courseID);
+}
+
 
 </script>
 
