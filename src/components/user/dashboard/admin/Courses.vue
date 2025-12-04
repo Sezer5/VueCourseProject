@@ -1,5 +1,8 @@
 <template>
-    <div>
+        <div v-if="loading" class="text-center m-3">
+            <v-progress-circular indeterminate color="primary" />
+        </div>
+    <div  v-else>
         <v-table class="bg-light bg-gradient rounded">
             <thead>
             <tr>
@@ -42,8 +45,18 @@
 import {useCourseStore} from '@/stores/courses'
 import {ref} from 'vue'
 const btnLoad = ref(false);
+const loading = ref(false);
 const courseStore = useCourseStore();
-courseStore.adminGetCourses(3);
+
+
+if(!courseStore.adminCourses){
+    loading.value=true;
+    courseStore.adminGetCourses(3).finally(()=>{
+         loading.value=false;
+    });
+}
+
+
 
 const loadMore = () =>{
     btnLoad.value=true;
