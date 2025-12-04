@@ -2,7 +2,7 @@
     <div>
         <h1>Kurs Ekle</h1>
         <hr>
-        <Form :validation-schema="CourseSchema" @submit="onSubmit">
+        <Form :validation-schema="CourseSchema" @submit="onSubmit" class="mb-4">
             <div class="mb-4">
                 <Field name="category" v-slot="{field,errors,errorMessage}">
                     <input type="text" class="form-control" placeholder="Lütfen Kategori Giriniz." v-bind="field" :class="{'is-invalid':errors.length!==0}"/>
@@ -47,6 +47,7 @@
                     </div>
                 </Field>
             </div>
+            
             <v-btn type="submit" variant="outlined">Kurs Ekle</v-btn>
             <!-- <div class="formChange" @click="isLoggedScreen = !isLoggedScreen">
                 <span v-if="isLoggedScreen">Kayıt Ol!</span>
@@ -60,10 +61,11 @@
 import {Field,Form} from 'vee-validate';
 import * as yup from 'yup';
 import CourseSchema from './schema.js'
+import {useCourseStore} from '@/stores/courses'
 const ratingArray = [0,1,2,3,4,5];
-
+const courseStore = useCourseStore();
 function onSubmit(values,{resetForm}){
-    console.log(values);
+    courseStore.addCourse(values);
 }
 </script>
 
