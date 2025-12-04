@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div v-if="loading" class="text-center m-3">
+        <v-progress-circular indeterminate color="primary" />
+    </div>
+    <div v-if="!loading">
         <h1>Kurs Ekle</h1>
         <hr>
         <Form :validation-schema="CourseSchema" @submit="onSubmit" class="mb-4">
@@ -62,10 +65,19 @@ import {Field,Form} from 'vee-validate';
 import * as yup from 'yup';
 import CourseSchema from './schema.js'
 import {useCourseStore} from '@/stores/courses'
+import {ref} from 'vue'
 const ratingArray = [0,1,2,3,4,5];
 const courseStore = useCourseStore();
+const loading = ref(false);
 function onSubmit(values,{resetForm}){
-    courseStore.addCourse(values);
+    loading.value = true;
+    courseStore.addCourse(values).then(()=>{
+
+    }).catch((error)=>{
+
+    }).finally(()=>{
+        loading.value = false;
+    });
 }
 </script>
 
