@@ -5,6 +5,10 @@
 </template>
 
 <script setup>
+import {useCourseStore} from '@/stores/courses'
+const courseStore = useCourseStore();
+courseStore.adminGetCourses(3);
+
 
 </script>
 
