@@ -50,5 +50,9 @@ export const useCourseStore = defineStore('course',{
             this.adminLastVisible=lastVisible;
             console.log(this.adminCourses);
         }
+
+        async adminGetMoreCourses(docLimit){
+            
+        }
     }
 })

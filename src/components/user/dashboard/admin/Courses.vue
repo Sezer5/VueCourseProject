@@ -29,7 +29,7 @@
                 </tr>
             </tbody>
         </v-table>
-        <v-btn variant="outlined" class="mt-5">Daha Fazla Kurs Yükle</v-btn>
+        <v-btn variant="outlined" class="mt-5" @click="loadMore()">Daha Fazla Kurs Yükle</v-btn>
   </div>
 </template>
 
@@ -38,6 +38,9 @@ import {useCourseStore} from '@/stores/courses'
 const courseStore = useCourseStore();
 courseStore.adminGetCourses(3);
 
+const loadMore = () =>{
+    courseStore.adminGetMoreCourses(3);
+}
 
 </script>
 
