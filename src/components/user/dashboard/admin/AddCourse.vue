@@ -66,15 +66,17 @@ import * as yup from 'yup';
 import CourseSchema from './schema.js'
 import {useCourseStore} from '@/stores/courses'
 import {ref} from 'vue'
+import {useToast} from 'vue-toast-notification'
+const $toast=useToast();
 const ratingArray = [0,1,2,3,4,5];
 const courseStore = useCourseStore();
 const loading = ref(false);
 function onSubmit(values,{resetForm}){
     loading.value = true;
     courseStore.addCourse(values).then(()=>{
-
+        $toast.success('Kurs Eklenmiştir');
     }).catch((error)=>{
-
+        $toast.error(error.message);
     }).finally(()=>{
         loading.value = false;
     });
