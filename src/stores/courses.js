@@ -18,7 +18,7 @@ export const useCourseStore = defineStore('course',{
     },
     actions:{
 
-
+        
         async getCourseById(id){
             
             try {

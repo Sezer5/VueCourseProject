@@ -24,11 +24,24 @@ export const useUserStore = defineStore('user',{
         auth:false
     }),
     getters:{
-        getUserData(state){
+         getUserData(state){
             return state.user;
-        }
+         },
+         getUserId(state){
+            return state.user.uid;
+         }
     },
     actions:{
+        async updateProfile(formData){
+            try {
+                await updateDoc(doc(DB,'users',this.getUserId),{...formData})
+                this.setUser(formData);
+                $toast.success('Güncelleme Başarılı!');                
+            } catch (error) {
+                $toast.error('Güncelleme Başarısız!');
+            }
+           
+        },
         setUser(user){
             this.user={...this.user,...user};
             this.auth=true;
