@@ -1,8 +1,6 @@
 <template>
-    <div v-if="loading" class="text-center m-3">
-        <v-progress-circular indeterminate color="primary" />
-    </div>
-    <div v-if="!loading">
+   
+    <div>
         <h1>Kurs Ekle</h1>
         <hr>
         <Form :validation-schema="CourseSchema" @submit="onSubmit" class="mb-4">
@@ -51,7 +49,7 @@
                 </Field>
             </div>
             
-            <v-btn type="submit" variant="outlined">Güncelle</v-btn>
+            <v-btn :loading="loading" type="submit" variant="outlined">Güncelle</v-btn>
             <!-- <div class="formChange" @click="isLoggedScreen = !isLoggedScreen">
                 <span v-if="isLoggedScreen">Kayıt Ol!</span>
                 <span v-else>Giriş Yap</span>
@@ -67,9 +65,10 @@ import CourseSchema from './schema.js'
 import {useCourseStore} from '@/stores/courses'
 import {ref} from 'vue'
 import {useToast} from 'vue-toast-notification'
-import {useRoute} from 'vue-router' 
+import {useRoute,useRouter} from 'vue-router' 
 const course=ref({});
 const route = useRoute();
+const router = useRouter();
 const $toast=useToast();
 const ratingArray = [0,1,2,3,4,5];
 const courseStore = useCourseStore();
@@ -79,7 +78,15 @@ courseStore.getCourseById(route.params.id).then((response)=>{
 const loading = ref(false);
 
 function onSubmit(values,{resetForm}){
-    courseStore.updateCourse(route.params.id,values);
+    loading.value=true;
+    courseStore.updateCourse(route.params.id,values).then(()=>{
+        $toast.success=('Güncelleme Başarılı');
+        router.push({name:'courses',query:{reload:true}}).catch(()=>{
+            $toast.error('Güncelleme başarısız!');
+        }).finally(()=>{
+            loading.value=false;
+        })
+    });
 }
 </script>
 
