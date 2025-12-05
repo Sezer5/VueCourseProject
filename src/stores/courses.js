@@ -88,6 +88,11 @@ export const useCourseStore = defineStore('course',{
                 return course.id != courseID;
             });
             this.adminCourses = newList;
+        },
+
+        async updateCourse(id,formData){
+            const docRef = doc(DB,'courses',id);
+            await updateDoc(docRef,{...formData});
         }
     }
 })

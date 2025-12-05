@@ -7,7 +7,7 @@
         <hr>
         <Form :validation-schema="CourseSchema" @submit="onSubmit" class="mb-4">
             <div class="mb-4">
-                <Field name="category" v-slot="{field,errors,errorMessage}" v-model="course.cagetory">
+                <Field name="category" v-slot="{field,errors,errorMessage}" v-model="course.category">
                     <input type="text" class="form-control" placeholder="Lütfen Kategori Giriniz." v-bind="field" :class="{'is-invalid':errors.length!==0}"/>
                     <div class="input-alert" v-if="errors.length!==0">
                         {{ errorMessage }}
@@ -51,7 +51,7 @@
                 </Field>
             </div>
             
-            <v-btn type="submit" variant="outlined">Kurs Ekle</v-btn>
+            <v-btn type="submit" variant="outlined">Güncelle</v-btn>
             <!-- <div class="formChange" @click="isLoggedScreen = !isLoggedScreen">
                 <span v-if="isLoggedScreen">Kayıt Ol!</span>
                 <span v-else>Giriş Yap</span>
@@ -79,7 +79,7 @@ courseStore.getCourseById(route.params.id).then((response)=>{
 const loading = ref(false);
 
 function onSubmit(values,{resetForm}){
-    
+    courseStore.updateCourse(route.params.id,values);
 }
 </script>
 
