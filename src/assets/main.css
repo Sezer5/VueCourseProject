@@ -123,3 +123,28 @@ header ul li{
 .mt150{
     margin-top: 150px;
 }
+
+.sliderMessage{
+    position: relative;
+    height: 750px;
+    background-size: cover !important;
+    width: 100%;
+    background-position: bottom right !important;
+}
+
+.slideContent{
+    position: absolute;
+    background-color: black;
+    bottom: 20px;
+    width: 50%;
+    font-size: 25px;
+    color:white;
+    padding: 20px;
+    border-radius: 0px 20px 20px 0px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.carouselTop{
+    padding-top: 130px;
+}

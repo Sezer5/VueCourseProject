@@ -16,6 +16,9 @@ export const useCourseStore = defineStore('course',{
     getters:{
         getHomeCourses(state){
             return state.homeCourses;
+        },
+        getHomeSlides(state){
+            return state.homeCourses.slice(0,4);
         }
     },
     actions:{
@@ -28,7 +31,7 @@ export const useCourseStore = defineStore('course',{
                 ...doc.data()
             })))
             this.homeCourses = courses;
-            return this.homeCourses;
+            
         },
         
         async getCourseById(id){
