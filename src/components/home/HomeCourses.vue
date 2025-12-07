@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{course.title}}</h5>
                     <p class="card-text">{{course.summary}}</p>
-                    <a href="#" class="btn btn-primary">Kursu İncele</a>
+                    <router-link class="btn btn-primary" :to="{name:'course',params:{id:course.id}}">Kursu İncele</router-link>
                 </div>
             </div>
         </div>

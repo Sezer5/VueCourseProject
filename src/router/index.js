@@ -8,6 +8,8 @@ import Courses from '@/components/user/dashboard/admin/Courses.vue'
 import AddCourse from '@/components/user/dashboard/admin/AddCourse.vue'
 import EditCourse from '@/components/user/dashboard/admin/EditCourse.vue'
 import {isAuth,isLoggedIn} from '@/composable/auth'
+import Course from '@/components/home/Course.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,6 +17,10 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
+    },{
+      path: '/course/:id',
+      name: 'course',
+      component: Course,
     },
     {
       path: '/signin',
