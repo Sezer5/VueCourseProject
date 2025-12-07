@@ -14,10 +14,22 @@ export const useCourseStore = defineStore('course',{
         adminLastVisible:''
     }),
     getters:{
-
+        getHomeCourses(state){
+            return state.homeCourses;
+        }
     },
     actions:{
 
+        async getCourses(){
+            const q = query(coursesCol,orderBy('timestap' , 'desc'));
+            const querySnapshot = await getDocs(q);
+            const courses = querySnapshot.docs.map((doc=>({
+                id:doc.id,
+                ...doc.data()
+            })))
+            this.homeCourses = courses;
+            return this.homeCourses;
+        },
         
         async getCourseById(id){
             
