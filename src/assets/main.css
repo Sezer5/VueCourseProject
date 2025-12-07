@@ -145,6 +145,43 @@ header ul li{
     text-align: left;
 }
 
-.carouselTop{
+.carouselTop,.courseTop{
     padding-top: 130px;
+}
+
+.courseImg{
+    height: 600px;
+    width: 100%;
+    background-size: cover;
+    background-position: bottom right;
+}
+
+.courseCategory{
+    background-color: #3fb27f;
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-size: 25px;
+    font-weight: 200;
+    border-radius: 0px 20px 0px 0px;
+}
+
+.courseContent{
+    margin-top: 50px;
+}
+
+.courseContent h1{
+    font-size: 60px;
+}
+
+.courseRating{
+    background-color: #3fb27f;
+    display: inline-block;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 25px;
+    color:white;
+    border-radius: 20px;
+    font-weight: 100;
+    margin-bottom: 50px;
 }
